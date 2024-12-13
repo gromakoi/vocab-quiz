@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="start-screen">
-        <h1>Welcome to the Vocabulary Quiz!</h1>
+        <h1>Welcome to the OAJ B Vocabulary Quiz!</h1>
         <p>Select the number of words for the quiz:</p>
         <div class="options">
             <button onclick="startQuiz(10)">10 Words</button>
@@ -32,7 +32,9 @@
                 <p>Correct: <span id="correct-score">0</span></p>
                 <p>Wrong: <span id="wrong-score">0</span></p>
             </div>
-            <button id="next-button" disabled>Next</button>
+            <div id="back-button-container">
+                <button class="back-to-start" onclick="showStartScreen()">Back to Start</button>
+            </div>
         </div>
     </div>
 

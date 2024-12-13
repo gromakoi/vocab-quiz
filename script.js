@@ -78,7 +78,6 @@ function selectAnswer(button, isCorrect) {
     document.getElementById('correct-score').textContent = score.correct;
     document.getElementById('wrong-score').textContent = score.wrong;
 
-    // Automatically move to the next question after a short delay
     setTimeout(() => {
         currentQuestionIndex++;
         if (currentQuestionIndex < quizQuestions.length) {
@@ -86,7 +85,7 @@ function selectAnswer(button, isCorrect) {
         } else {
             showResults();
         }
-    }, 1000); // Adjust delay time if needed
+    }, 250);
 }
 
 // Show results
@@ -97,17 +96,10 @@ function showResults() {
     termElement.textContent = `Quiz Complete! Correct: ${score.correct}, Wrong: ${score.wrong}.`;
     optionsContainer.innerHTML = '';
 
-    if (incorrectQuestions.length > 0) {
-        const retryButton = document.createElement('button');
-        retryButton.textContent = 'Retry Incorrect Questions';
-        retryButton.onclick = retryIncorrect;
-        optionsContainer.appendChild(retryButton);
-    }
-
-    const startPageButton = document.createElement('button');
-    startPageButton.textContent = 'Start Page';
-    startPageButton.onclick = showStartScreen;
-    optionsContainer.appendChild(startPageButton);
+    const retryButton = document.createElement('button');
+    retryButton.textContent = 'Retry Incorrect Questions';
+    retryButton.onclick = retryIncorrect;
+    optionsContainer.appendChild(retryButton);
 }
 
 // Retry incorrect questions
@@ -127,7 +119,3 @@ function showStartScreen() {
     document.querySelector('.start-screen').style.display = 'block';
     document.querySelector('.quiz-container').style.display = 'none';
 }
-
-// Remove Next Button (Ensure it's not rendered in HTML)
-const nextButton = document.getElementById('next-button');
-if (nextButton) nextButton.remove();

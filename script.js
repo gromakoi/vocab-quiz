@@ -36,7 +36,6 @@ function startQuiz(numWords) {
 function loadQuestion() {
     const termElement = document.getElementById('term');
     const optionsContainer = document.getElementById('options');
-    const nextButton = document.getElementById('next-button');
     const question = quizQuestions[currentQuestionIndex];
 
     termElement.textContent = question[0];
@@ -59,8 +58,6 @@ function loadQuestion() {
         button.onclick = () => selectAnswer(button, answer === question[1]);
         optionsContainer.appendChild(button);
     });
-
-    nextButton.disabled = true;
 }
 
 // Handle answer selection
@@ -80,28 +77,25 @@ function selectAnswer(button, isCorrect) {
 
     document.getElementById('correct-score').textContent = score.correct;
     document.getElementById('wrong-score').textContent = score.wrong;
-    document.getElementById('next-button').disabled = false;
-}
 
-// Load the next question
-function nextQuestion() {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < quizQuestions.length) {
-        loadQuestion();
-    } else {
-        showResults();
-    }
+    // Automatically move to the next question after a short delay
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < quizQuestions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }, 1000); // Adjust delay time if needed
 }
 
 // Show results
 function showResults() {
     const termElement = document.getElementById('term');
     const optionsContainer = document.getElementById('options');
-    const nextButton = document.getElementById('next-button');
 
     termElement.textContent = `Quiz Complete! Correct: ${score.correct}, Wrong: ${score.wrong}.`;
     optionsContainer.innerHTML = '';
-    nextButton.style.display = 'none';
 
     if (incorrectQuestions.length > 0) {
         const retryButton = document.createElement('button');
@@ -125,7 +119,6 @@ function retryIncorrect() {
 
     document.getElementById('correct-score').textContent = score.correct;
     document.getElementById('wrong-score').textContent = score.wrong;
-    document.getElementById('next-button').style.display = 'inline';
     loadQuestion();
 }
 
@@ -135,5 +128,6 @@ function showStartScreen() {
     document.querySelector('.quiz-container').style.display = 'none';
 }
 
-// Bind Next Button
-document.getElementById('next-button').onclick = nextQuestion;
+// Remove Next Button (Ensure it's not rendered in HTML)
+const nextButton = document.getElementById('next-button');
+if (nextButton) nextButton.remove();
